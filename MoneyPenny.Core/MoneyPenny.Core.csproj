@@ -39,13 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\ChangeData.cs" />
     <Compile Include="Processors\BankNoteProcessor.cs" />
-    <Compile Include="Processors\ChangeProcessor.cs" />
+    <Compile Include="Processors\AbstractProcessor.cs" />
     <Compile Include="Processors\CoinProcessor.cs" />
     <Compile Include="DataContracts\AbstractRequest.cs" />
     <Compile Include="DataContracts\AbstractResponse.cs" />
     <Compile Include="DataContracts\ReturnAmountResponse.cs" />
     <Compile Include="MoneyPennyManager.cs" />
+    <Compile Include="Processors\ProcessorFactory.cs" />
+    <Compile Include="Processors\SilverProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="DataContracts\ReturnAmountRequest.cs" />

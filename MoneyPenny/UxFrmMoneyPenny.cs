@@ -45,13 +45,13 @@ namespace MoneyPenny
 			{
 				UxLblChange.Text = String.Format("Troco: {0}", returnAmountResponse.TotalAmount);
 				UxLtbResult.Items.Clear();
-				foreach (KeyValuePair<long, int> item in returnAmountResponse.ResultNotes)
+
+				foreach (ChangeData changeData in returnAmountResponse.Result)
 				{
-					UxLtbResult.Items.Add(string.Format("Notas de {0} reais : {1}", item.Key/100, item.Value));
-				}
-				foreach (KeyValuePair<long, int> item in returnAmountResponse.ResultCoins)
-				{
-					UxLtbResult.Items.Add(string.Format("Moeda de {0} centavos : {1}", item.Key, item.Value));
+					foreach (KeyValuePair<long, int> item in changeData.Changes)
+					{
+						UxLtbResult.Items.Add(string.Format("{0} de {1} : {2}", changeData.Type, item.Key, item.Value));	
+					}					
 				}
 			}
 		}

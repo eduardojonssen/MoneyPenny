@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace MoneyPenny.Core.Processors
 {
-	public class CoinProcessor : AbstractProcessor
+	public class SilverProcessor : AbstractProcessor
 	{
+
+
 		public override long[] ChangeValues
 		{
 			get
 			{
-				return new long[] { 1, 5, 10, 25, 50, 100 };
+				return new long[] { 50000, 100000 };
 			}
+
 		}
 
 		public override string GetName()
 		{
-			return "Coin";
+			return "SilverBar";
 		}
 	}
 }

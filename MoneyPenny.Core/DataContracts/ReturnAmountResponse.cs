@@ -9,11 +9,11 @@ namespace MoneyPenny.Core
 {
 	public class ReturnAmountResponse : AbstractResponse
 	{
-		public ReturnAmountResponse() { }
+		public ReturnAmountResponse() {
+			this.Result = new List<ChangeData>();
+		}
 
-		public Dictionary<long, int> ResultNotes { get; internal set; }
-
-		public Dictionary<long, int> ResultCoins { get; internal set; }
+		public List<ChangeData> Result { get; set; }
 
 		public Nullable<long> TotalAmount { get; internal set; }
 	}

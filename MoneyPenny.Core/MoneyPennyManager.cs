@@ -15,26 +15,32 @@ namespace MoneyPenny.Core
 
 			try
 			{
-				// Verifica se os ados recebidos são válidos.
+				// Verifica se os dados recebidos são válidos.
 				if (returnCoinsRequest.IsValid == false)
 				{
 					returnAmountResponse.OperationReport = returnCoinsRequest.ValidationReport;
 					return returnAmountResponse;
 				}
-				
+
 				long changeAmount = returnCoinsRequest.PaidAmount - returnCoinsRequest.ProductAmount;
 				long currentChangeAmount = changeAmount;
 
-				BankNoteProcessor bankNoteProcessor = new BankNoteProcessor();
-				CoinProcessor coinProcessor = new CoinProcessor();
-
-				Dictionary<long, int> resultNotes = bankNoteProcessor.CalculateChange(currentChangeAmount);
-				currentChangeAmount -= resultNotes.Sum(c => c.Key * c.Value);
-				Dictionary<long, int> resultCoins = coinProcessor.CalculateChange(currentChangeAmount);
-
+				List<ChangeData> chData = new List<ChangeData>();
+				while (currentChangeAmount > 0)
+				{
+					AbstractProcessor processor = ProcessorFactory.Create(currentChangeAmount);
+					Dictionary<long, int> result = processor.CalculateChange(currentChangeAmount);
+					long resultTotalAmount = result.Sum(t => t.Key * t.Value);
+					chData.Add(new ChangeData()
+					{
+						Type = processor.GetName(),
+						TotalAmount = resultTotalAmount,
+						Changes = result
+					});
+					currentChangeAmount -= resultTotalAmount;
+				}
 				returnAmountResponse.TotalAmount = changeAmount;
-				returnAmountResponse.ResultCoins = resultCoins;
-				returnAmountResponse.ResultNotes = resultNotes;
+				returnAmountResponse.Result = chData;
 				returnAmountResponse.Success = true;
 			}
 			catch (Exception ex)
