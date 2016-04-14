@@ -42,6 +42,7 @@
     <Compile Include="DataContracts\ChangeData.cs" />
     <Compile Include="Processors\BankNoteProcessor.cs" />
     <Compile Include="Processors\AbstractProcessor.cs" />
+    <Compile Include="Processors\CandyProcessor.cs" />
     <Compile Include="Processors\CoinProcessor.cs" />
     <Compile Include="DataContracts\AbstractRequest.cs" />
     <Compile Include="DataContracts\AbstractResponse.cs" />

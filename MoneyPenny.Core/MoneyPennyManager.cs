@@ -29,6 +29,12 @@ namespace MoneyPenny.Core
 				while (currentChangeAmount > 0)
 				{
 					AbstractProcessor processor = ProcessorFactory.Create(currentChangeAmount);
+					if (processor == null)
+					{
+						returnAmountResponse.OperationReport.Add(new Report(null, "Não foi possivel processar seu troco."));
+						return returnAmountResponse;
+					}
+
 					Dictionary<long, int> result = processor.CalculateChange(currentChangeAmount);
 					long resultTotalAmount = result.Sum(t => t.Key * t.Value);
 					chData.Add(new ChangeData()

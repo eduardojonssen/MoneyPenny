@@ -15,12 +15,11 @@ namespace MoneyPenny.Core.Processors
 			listProcessor.Add(new CoinProcessor());
 			listProcessor.Add(new BankNoteProcessor());
 			listProcessor.Add(new SilverProcessor());
-
+			listProcessor.Add(new CandyProcessor());
 		}
 
 		public static AbstractProcessor Create(long currentChangeAmount)
 		{
-
 			foreach (AbstractProcessor processor in listProcessor.OrderByDescending(l => l.ChangeValues.Max()))
 			{
 				if (currentChangeAmount >= processor.ChangeValues.Min())
@@ -28,7 +27,6 @@ namespace MoneyPenny.Core.Processors
 					return processor;
 				}
 			}
-
 			return null;
 		}
 	}
