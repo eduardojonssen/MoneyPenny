@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoneyPenny.Core.Log;
 
 namespace MoneyPenny.Core
 {
@@ -11,6 +12,8 @@ namespace MoneyPenny.Core
 	{
 		public ReturnAmountResponse ReturnAmount(ReturnAmountRequest returnCoinsRequest)
 		{
+			LogService.Save("Request", returnCoinsRequest);
+			
 			ReturnAmountResponse returnAmountResponse = new ReturnAmountResponse();
 
 			try
@@ -52,7 +55,11 @@ namespace MoneyPenny.Core
 			catch (Exception ex)
 			{
 				returnAmountResponse.OperationReport.Add(new Report(null, "Ocorreu um erro interno."));
+
+				LogService.Save("Exception", ex.Message);
 			}
+
+			LogService.Save("Response", returnAmountResponse);
 
 			return returnAmountResponse;
 		}
